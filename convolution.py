@@ -4,26 +4,16 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def linear_convolution(a, b):
-    n = a.size
-    m = b.size
+def convolution(a, b):
+    n, m = a.size, b.size
+
     s = np.zeros(n+m-1, dtype=float)
 
-    new_a = np.zeros(s.size)
-    new_b = np.zeros(s.size)
-    new_a[0:n] = a
-    new_b[0:m] = b
+    _a, _b = np.zeros(s.size), np.zeros(s.size)
+    _a[0:n], _b[0:m] = a, b
 
     for n in range(s.size):
         for m in range(s.size):
-            s[n] += new_a[m] * new_b[n - m]
-    return s
+            s[n] += _a[m] * _b[n - m]
 
-
-def cyclic_convolution(a, b):
-    s = np.zeros(a.size, dtype=float)
-
-    for n in range(s.size):
-        for m in range(s.size):
-            s[n] += a[m] * b[n - m]
     return s
